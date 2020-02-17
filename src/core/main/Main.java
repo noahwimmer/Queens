@@ -21,7 +21,7 @@ public class Main extends Canvas implements Runnable {
 
         this.addKeyListener(keyInput);
 
-        new Window(Constants.WIDTH, Constants.HEIGHT, "Particle Sim", this);
+        new Window(Constants.WIDTH, Constants.HEIGHT, "NAME HERE", this);
     }
 
     synchronized void start() {
