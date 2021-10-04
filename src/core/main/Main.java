@@ -21,7 +21,18 @@ public class Main extends Canvas implements Runnable {
 
         this.addKeyListener(keyInput);
 
-        new Window(Constants.WIDTH, Constants.HEIGHT, "NAME HERE", this);
+
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                int newX = j * (Constants.WIDTH/8);
+                int newY = i * (Constants.HEIGHT/8);
+                Space newSpace = new Space(newX, newY, j + (i*10), handler, this);
+                this.addMouseListener(newSpace);
+                handler.addObject(newSpace);
+            }
+        }
+
+        new Window(Constants.WIDTH, Constants.HEIGHT, "Queens", this);
     }
 
     synchronized void start() {
@@ -37,6 +48,29 @@ public class Main extends Canvas implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void renderLines(Graphics g) {
+        g.setColor(Color.WHITE);
+
+        final int eigth_width = Constants.WIDTH/8;
+        final int eigth_height = Constants.HEIGHT/8;
+        for (int i = 0; i < 8; i++) {
+            g.drawLine(eigth_width * (i+1), 0, eigth_width * (i+1), Constants.HEIGHT);
+            g.drawLine(0, eigth_height * (i+1), Constants.WIDTH, eigth_height * (i+1));
+        }
+
+    }
+
+    public Space getSpacebyId(int id) {
+        for(int i = 0; i < handler.getObjects().size(); i++) {
+            if(handler.getObjects().get(i).getID() == id) {
+                    return (Space) handler.getObjects().get(i);
+            }
+        }
+
+        // no matches
+        return null;
     }
 
     public void tick() {
@@ -55,6 +89,8 @@ public class Main extends Canvas implements Runnable {
 
         g.setColor((Color.BLACK));
         g.fillRect(0,0,Constants.WIDTH, Constants.HEIGHT);
+
+        //renderLines(g);
 
         handler.render(g);
 
