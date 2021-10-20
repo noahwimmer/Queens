@@ -31,8 +31,8 @@ public class Space extends GameObject {
     }
 
     public void setInvalidHelper(LinkedList<Space> spaces) {
-        for (Space s : spaces) {
-            setInvalidSpaces(s.getID());
+        for(int i = 0; i < spaces.size(); i++) {
+            setInvalidSpaces(spaces.get(i).getID());
         }
     }
 
@@ -224,7 +224,7 @@ public class Space extends GameObject {
     @Override
     public void tick() {
         count++;
-        if(count == 15) {
+        if(count == 2) {
             setInvalidHelper(spaces);
             count = 0;
         }
